@@ -14,22 +14,22 @@ def compiles():
 @check50.check(compiles)
 def uppercase():
     """outputs HLJ for Hailey Lynn James"""
-    check50.run("./initials").stdin("Hailey Lynn James").stdout(match("HLJ"), "HLJ\n").exit(0)
+    check50.run("./initials").stdin("Hailey Lynn James", prompt=False).stdout(match("HLJ"), "HLJ\n").exit(0)
 
 @check50.check(compiles)
 def lowercase():
     """outputs HLJ for hailey lynn james"""
-    check50.run("./initials").stdin("hailey lynn james").stdout(match("HLJ"), "HLJ\n").exit(0)
+    check50.run("./initials").stdin("hailey lynn james", prompt=False).stdout(match("HLJ"), "HLJ\n").exit(0)
 
 @check50.check(compiles)
 def mixed_case():
     """outputs HJ for hailey James"""
-    check50.run("./initials").stdin("hailey James").stdout(match("HJ"), "HJ\n").exit(0)
+    check50.run("./initials").stdin("hailey James", prompt=False).stdout(match("HJ"), "HJ\n").exit(0)
 
 @check50.check(compiles)
 def all_uppercase():
     """outputs B for BRIAN"""
-    check50.run("./initials").stdin("BRIAN").stdout(match("B"), "B\n").exit(0)
+    check50.run("./initials").stdin("BRIAN", prompt=False).stdout(match("B"), "B\n").exit(0)
 
 def match(initials):
     return "^(.*\n)?{}\n".format(initials)
