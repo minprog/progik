@@ -14,4 +14,4 @@ def compiles():
 @check50.check(compiles)
 def cracks_andi():
     """cracks andi's password: 50.jPgLzVirkc"""
-    check50.run("./crack", "50.jPgLzVirkc").stdout("hi").exit(0)
+    check50.run("./crack 50.jPgLzVirkc").stdout("hi").exit(0)
