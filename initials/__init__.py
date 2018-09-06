@@ -26,7 +26,7 @@ def mixed_case():
     """outputs HJ for hailey James"""
     check50.run("./initials").stdin("hailey James").stdout(match("HJ"), "HJ\n").exit(0)
 
-@check(compiles)
+@check50.check(compiles)
 def all_uppercase():
     """outputs B for BRIAN"""
     check50.run("./initials").stdin("BRIAN").stdout(match("B"), "B\n").exit(0)
