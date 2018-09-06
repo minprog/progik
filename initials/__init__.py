@@ -9,7 +9,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """initials.c compiles."""
-    check50.c.compile("initials.c", lcs50=True).exit(0)
+    check50.c.compile("initials.c", lcs50=True)
 
 @check50.check(compiles)
 def uppercase():
