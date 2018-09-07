@@ -1,3 +1,4 @@
+import check50
 less = check50.import_checks("../less")
 from less import *
 
