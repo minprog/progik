@@ -39,7 +39,7 @@ def init4():
         check.stdout(tile)
     check.stdout("\n")
 
-@check(init3)
+@check50.check(init3)
 def invalid8():
     """3x3 board: catches moving 8 as an illegal move"""
     check = check50.run("./fifteen 3").stdin("8").stdout("Illegal move.")
