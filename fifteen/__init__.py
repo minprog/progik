@@ -33,6 +33,27 @@ def init4():
         .stdout("3").stdout("1").stdout("2").stdout("[_0]") \
         .stdout("\n") \
 
+@check50.check(compiles)
+def solve3():
+    """solves a 3x3 board."""
+    steps = ["3","4","1","2","5","8","7","6",
+             "4","1","2","5","8","7","6","4",
+             "1","2","4","1","2","3","5","4",
+             "7","6","1","2","3","7","4","8",
+             "6","4","8","5","7","8","5","6",
+             "4","5","6","7","8","6","5","4",
+             "7","8"]
+
+    check = check50.run("./fifteen 3")
+
+    for step in steps:
+        check.stdin(step, prompt=False)
+
+    check50.stdout("1").stdout("2").stdout("3") \
+           .stdout("4").stdout("5").stdout("6") \
+           .stdout("7").stdout("8").stdout("[_0]") \
+           .stdout("\n") \
+
 
 # @check("init3")
 # def invalid8(self):
