@@ -6,6 +6,7 @@ def exists():
     """fifteen.c exists."""
     check50.exists("fifteen.c")
 
+
 @check50.check(exists)
 def compiles():
     """fifteen.c compiles."""
@@ -13,6 +14,7 @@ def compiles():
     check50.run("sed -i='' '/#include <unistd.h>/a \\\n#define usleep(x)' fifteen.c").exit()
 
     check50.c.compile("fifteen.c", lcs50=True)
+
 
 @check50.check(compiles)
 def init3():
@@ -25,6 +27,7 @@ def init3():
     for tile in board:
         check.stdout(tile)
     check.stdout("\n")
+
 
 @check50.check(compiles)
 def init4():
@@ -39,6 +42,7 @@ def init4():
         check.stdout(tile)
     check.stdout("\n")
 
+
 @check50.check(init3)
 def invalid8():
     """3x3 board: catches moving 8 as an illegal move."""
@@ -51,6 +55,7 @@ def invalid8():
         check.stdout(tile)
     check.stdout("\n")
 
+
 @check50.check(init3)
 def valid1():
     """3x3 board: catches moving 1 as a legal move."""
@@ -62,6 +67,7 @@ def valid1():
     for tile in board:
         check.stdout(tile)
     check.stdout("\n")
+
 
 @check50.check(init3)
 def move_up2():
@@ -82,29 +88,66 @@ def move_up2():
         check.stdout(tile)
     check.stdout("\n")
 
-# @check("init3")
-# def move_left2(self):
-#     """3x3 board: move blank left twice"""
-#     self.spawn("./fifteen 3").stdin("1")                    \
-#                              .stdout("8-7-6|5-4-3|2-0-1\n") \
-#                              .stdin("2")                    \
-#                              .stdout("8-7-6|5-4-3|0-2-1\n")
-#
-# @check("init3")
-# def move_left_right(self):
-#     """3x3 board: move blank left then right"""
-#     self.spawn("./fifteen 3").stdin("1")                    \
-#                              .stdout("8-7-6|5-4-3|2-0-1\n") \
-#                              .stdin("2")                    \
-#                              .stdout("8-7-6|5-4-3|2-1-0\n")
-#
-# @check("init3")
-# def move_up_down(self):
-#     """3x3 board: move blank up then down"""
-#     self.spawn("./fifteen 3").stdin("3")                    \
-#                              .stdout("8-7-6|5-4-0|2-1-3\n") \
-#                              .stdin("3")                    \
-#                              .stdout("8-7-6|5-4-3|2-1-0\n")
+
+@check50.check(init3)
+def move_left2():
+    """3x3 board: move blank left twice"""
+    check = check50.run("./fifteen 3").stdin("1")
+    board = ["8", "7", "6",
+             "5", "4", "3",
+             "2", "[_0]", "1"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
+    check.stdin("2")
+    board = ["8", "7", "6",
+             "5", "4", "3",
+             "[_0]", "2", "1"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
+
+check50.check(init3)
+def move_left_right():
+    """3x3 board: move blank left then right"""
+    check = check50.run("./fifteen 3").stdin("1")
+    board = ["8", "7", "6",
+             "5", "4", "3",
+             "2", "[_0]", "1"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
+    check.stdin("1")
+    board = ["8", "7", "6",
+             "5", "4", "3",
+             "2", "1", "[_0]"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
+
+check50.check(init3)
+def move_up_down():
+    """3x3 board: move blank up then down"""
+    check = check50.run("./fifteen 3").stdin("3")
+    board = ["8", "7", "6",
+             "5", "4", "[_0]",
+             "2", "1", "3"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
+    check.stdin("3")
+    board = ["8", "7", "6",
+             "5", "4", "3",
+             "2", "1", "[_0]"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
 
 @check50.check(init3)
 def solve3():
@@ -129,6 +172,7 @@ def solve3():
     for tile in board:
         check.stdout(tile)
     check.stdout("\n")
+
 
 @check50.check(init4)
 def solve4():
