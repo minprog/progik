@@ -16,19 +16,23 @@ def compiles():
 
 @check50.check(compiles)
 def init3():
-    """3x3 board: init initializes board correctly"""
+    """initializes a 3x3 board correctly."""
     check50.run("./fifteen 3") \
-        .stdout("8") \
-        .stdout("7") \
-        .stdout("6") \
-        .stdout("5") \
-        .stdout("4") \
-        .stdout("3") \
-        .stdout("2") \
-        .stdout("1") \
-        .stdout("[_0]") \
+        .stdout("8").stdout("7").stdout("6") \
+        .stdout("5").stdout("4").stdout("3") \
+        .stdout("2").stdout("1").stdout("[_0]") \
         .stdout("\n") \
-        .stdout("Tile to move:")
+
+@check50.check(compiles)
+def init4():
+    """initializes a 4x4 board correctly."""
+    check50.run("./fifteen 4") \
+        .stdout("15").stdout("14").stdout("13").stdout("12") \
+        .stdout("11").stdout("10").stdout("9").stdout("8") \
+        .stdout("7").stdout("6").stdout("5").stdout("4") \
+        .stdout("3").stdout("1").stdout("2").stdout("[_0]") \
+        .stdout("\n") \
+
 
 # @check("init3")
 # def invalid8(self):
