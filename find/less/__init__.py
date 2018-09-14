@@ -2,12 +2,12 @@ import check50
 import check50.c
 
 @check50.check()
-def exists(self):
+def exists():
     """helpers.c exists."""
     check50.exists("helpers.c")
 
-@check(exists)
-def compiles(self):
+@check50.check(exists)
+def compiles():
     """helpers.c compiles."""
     check50.include("helpers.h", "find.c", "sort.c")
     check50.c.compile("sort.c", "helpers.c", exe_name="sort", lcs50=True)
