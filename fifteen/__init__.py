@@ -41,7 +41,7 @@ def init4():
 
 @check50.check(init3)
 def invalid8():
-    """3x3 board: catches moving 8 as an illegal move"""
+    """3x3 board: catches moving 8 as an illegal move."""
     check = check50.run("./fifteen 3").stdin("8").stdout("Illegal move.")
 
     board = ["8", "7", "6",
@@ -51,13 +51,19 @@ def invalid8():
         check.stdout(tile)
     check.stdout("\n")
 
-# @check("init3")
-# def valid1(self):
-#     """3x3 board: catches moving 1 as a legal move"""
-#     self.spawn("./fifteen 3").stdin("1")                    \
-#                              .stdout("8-7-6|5-4-3|2-0-1\n") \
-#                              .stdout("Tile to move:")
-#
+
+@check50.check(init3)
+def valid1():
+    """3x3 board: catches moving 1 as a legal move."""
+    check = check50.run("./fifteen 3").stdin("1")
+
+    board = ["8", "7", "6",
+             "5", "4", "3",
+             "2", "[_0]", "1"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
 # @check("init3")
 # def move_up2(self):
 #     """3x3 board: move blank up twice"""
