@@ -6,7 +6,7 @@ def exists():
     """helpers.c exists."""
     check50.exists("helpers.c")
 
-s
+
 @check50.check(exists)
 def compiles():
     """helpers.c compiles."""
@@ -20,10 +20,12 @@ def sort_reversed():
     """sorts {5,4,3,2,1}"""
     test_sorted([5, 4, 3, 2, 1])
 
+
 @check50.check(compiles)
 def sort_shuffled():
     """sorts {5,3,1,2,4,6}"""
     test_sorted([5, 3, 1, 2, 4, 6])
+
 
 @check50.check(compiles)
 def first_among_three():
