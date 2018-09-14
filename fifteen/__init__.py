@@ -23,7 +23,7 @@ def init3():
 
     check = check50.run("./fifteen 3")
     for tile in board:
-        check.stdout("tile")
+        check.stdout(tile)
     check.stdout("\n")
 
 @check50.check(compiles)
@@ -36,7 +36,7 @@ def init4():
 
     check = check50.run("./fifteen 4")
     for tile in board:
-        check.stdout("tile")
+        check.stdout(tile)
     check.stdout("\n")
 
 # @check("init3")
@@ -106,7 +106,7 @@ def solve3():
         check.stdin(step, prompt=False)
 
     for tile in board:
-        check.stdout("tile")
+        check.stdout(tile)
     check.stdout("\n")
 
 @check50.check(compiles)
@@ -142,5 +142,5 @@ def solve4():
         check.stdin(step, prompt=False)
 
     for tile in board:
-        check.stdout("tile")
+        check.stdout(tile)
     check.stdout("\n")
