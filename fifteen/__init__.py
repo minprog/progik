@@ -49,10 +49,10 @@ def solve3():
     for step in steps:
         check.stdin(step, prompt=False)
 
-    check50.stdout("1").stdout("2").stdout("3") \
-           .stdout("4").stdout("5").stdout("6") \
-           .stdout("7").stdout("8").stdout("[_0]") \
-           .stdout("\n") \
+    check.stdout("1").stdout("2").stdout("3") \
+         .stdout("4").stdout("5").stdout("6") \
+         .stdout("7").stdout("8").stdout("[_0]") \
+         .stdout("\n")
 
 
 # @check("init3")
