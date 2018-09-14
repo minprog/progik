@@ -51,7 +51,6 @@ def invalid8():
         check.stdout(tile)
     check.stdout("\n")
 
-
 @check50.check(init3)
 def valid1():
     """3x3 board: catches moving 1 as a legal move."""
@@ -64,14 +63,25 @@ def valid1():
         check.stdout(tile)
     check.stdout("\n")
 
-# @check("init3")
-# def move_up2(self):
-#     """3x3 board: move blank up twice"""
-#     self.spawn("./fifteen 3").stdin("3")                    \
-#                              .stdout("8-7-6|5-4-0|2-1-3\n") \
-#                              .stdin("6")                    \
-#                              .stdout("8-7-0|5-4-6|2-1-3\n")
-#
+@check50.check(init3)
+def move_up2():
+    """3x3 board: move blank up twice."""
+    check = check50.run("./fifteen 3").stdin("3")
+    board = ["8", "7", "6",
+             "5", "4", "[_0]",
+             "2", "1", "3"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
+    check.stdin("6")
+    board = ["8", "7", "[_0]",
+             "5", "4", "6",
+             "2", "1", "3"]
+    for tile in board:
+        check.stdout(tile)
+    check.stdout("\n")
+
 # @check("init3")
 # def move_left2(self):
 #     """3x3 board: move blank left twice"""
