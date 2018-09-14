@@ -26,7 +26,7 @@ def init3():
         .stdout("3") \
         .stdout("2") \
         .stdout("1") \
-        .stdout("0") \
+        .stdout("[_0]") \
         .stdout("\n") \
         .stdout("Tile to move:")
 
