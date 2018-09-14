@@ -6,7 +6,7 @@ def exists():
     """helpers.c exists."""
     check50.exists("helpers.c")
 
-
+s
 @check50.check(exists)
 def compiles():
     """helpers.c compiles."""
@@ -20,16 +20,16 @@ def sort_reversed():
     """sorts {5,4,3,2,1}"""
     test_sorted([5, 4, 3, 2, 1])
 
-# @check("compiles")
-# def sort_shuffled(self):
-#     """sorts {5,3,1,2,4,6}"""
-#     self.test_sorted([5, 3, 1, 2, 4, 6])
-#
-# @check("compiles")
-# def first_among_three(self):
-#     """finds 28 in {28,29,30}"""
-#     self.spawn("./find 28").stdin("28").stdin("29").stdin("30").stdin(EOF).exit(0)
-#
+@check50.check(compiles)
+def sort_shuffled():
+    """sorts {5,3,1,2,4,6}"""
+    test_sorted([5, 3, 1, 2, 4, 6])
+
+@check50.check(compiles)
+def first_among_three():
+    """finds 28 in {28,29,30}"""
+    check50.run("./find 28").stdin("28").stdin("29").stdin("30").stdin(check50.EOF).exit(0)
+
 # @check("compiles")
 # def second_among_three(self):
 #     """finds 28 in {27,28,29}"""
