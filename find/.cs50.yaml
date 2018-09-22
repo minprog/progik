@@ -3,9 +3,9 @@ check50:
     - !exclude "*"
     - !include "find.c"
     - !include "generate.c"
+    - !include "helpers.h"
+    - !include "Makefile"
     - !require "helpers.c"
-    - !require "helpers.h"
-    - !require "Makefile"
 
 submit50:
   files: *check50_files
