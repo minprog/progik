@@ -167,6 +167,7 @@ def solve3():
     check = check50.run("./fifteen 3")
 
     for step in steps:
+        check.stdout("Tile to move:")
         check.stdin(step, prompt=False)
 
     for tile in board:
@@ -204,6 +205,7 @@ def solve4():
     check = check50.run("./fifteen 4")
 
     for step in steps:
+        check.stdout("Tile to move:")
         check.stdin(step, prompt=False)
 
     for tile in board:
