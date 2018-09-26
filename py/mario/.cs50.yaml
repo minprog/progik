@@ -1,0 +1,9 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !require mario.py
+  dependencies:
+    - "git+https://github.com/jelleas/uva_check50.git@master"
+
+submit50:
+  files: *check50_files
