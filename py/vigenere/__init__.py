@@ -1,5 +1,5 @@
 import check50
-import check50.uva.py
+import uva.check50.py
 import re
 
 @check50.check()
@@ -11,13 +11,13 @@ def exists():
 @check50.check(exists)
 def compiles():
     """vigenere.py compiles."""
-    check50.uva.py.compile("vigenere.py")
+    uva.check50.py.compile("vigenere.py")
 
 
 @check50.check(compiles)
 def aa():
     """encrypts "a" as "a" using "a" as keyword"""
-    result = check50.uva.py.run("vigenere.py", argv=["vigenere.py", "a"], stdin=["a"])
+    result = uva.check50.py.run("vigenere.py", argv=["vigenere.py", "a"], stdin=["a"])
     if not re.match(".*ciphertext:\s*a\n", result.stdout):
         raise check50.Mismatch("ciphertext: a\n", result.stdout)
 
@@ -25,7 +25,7 @@ def aa():
 @check50.check(compiles)
 def bazbarfoo_caqgon():
     """encrypts "barfoo" as "caqgon" using "baz" as keyword"""
-    result = check50.uva.py.run("vigenere.py", argv=["vigenere.py", "baz"], stdin=["barfoo"])
+    result = uva.check50.py.run("vigenere.py", argv=["vigenere.py", "baz"], stdin=["barfoo"])
     if not re.match(".*ciphertext:\s*caqgon\n", result.stdout):
         raise check50.Mismatch("ciphertext: caqgon\n", result.stdout)
 
@@ -33,7 +33,7 @@ def bazbarfoo_caqgon():
 @check50.check(compiles)
 def mixedBaZBARFOO():
     """encrypts "BaRFoo" as "CaQGon" using "BaZ" as keyword"""
-    result = check50.uva.py.run("vigenere.py", argv=["vigenere.py", "BaZ"], stdin=["BaRFoo"])
+    result = uva.check50.py.run("vigenere.py", argv=["vigenere.py", "BaZ"], stdin=["BaRFoo"])
     if not re.match(".*ciphertext:\s*CaQGon\n", result.stdout):
         raise check50.Mismatch("ciphertext: CaQGon\n", result.stdout)
 
@@ -41,7 +41,7 @@ def mixedBaZBARFOO():
 @check50.check(compiles)
 def allcapsBAZBARFOO():
     """encrypts "BARFOO" as "CAQGON" using "BAZ" as keyword"""
-    result = check50.uva.py.run("vigenere.py", argv=["vigenere.py", "BAZ"], stdin=["BARFOO"])
+    result = uva.check50.py.run("vigenere.py", argv=["vigenere.py", "BAZ"], stdin=["BARFOO"])
     if not re.match(".*ciphertext:\s*CAQGON\n", result.stdout):
         raise check50.Mismatch("ciphertext: CAQGON\n", result.stdout)
 
@@ -49,7 +49,7 @@ def allcapsBAZBARFOO():
 @check50.check(compiles)
 def bazworld():
     """encrypts "world!$?" as "xoqmd!$?" using "baz" as keyword"""
-    result = check50.uva.py.run("vigenere.py", argv=["vigenere.py", "baz"], stdin=["world!$?"])
+    result = uva.check50.py.run("vigenere.py", argv=["vigenere.py", "baz"], stdin=["world!$?"])
     if not re.match(".*ciphertext:\s*xoqmd!\$\?\n", result.stdout):
         raise check50.Mismatch("ciphertext: xoqmd!$?\n", result.stdout)
 
@@ -57,7 +57,7 @@ def bazworld():
 @check50.check(compiles)
 def withspaces():
     """encrypts "hello, world!" as "iekmo, vprke!" using "baz" as keyword"""
-    result = check50.uva.py.run("vigenere.py", argv=["vigenere.py", "baz"], stdin=["hello, world!"])
+    result = uva.check50.py.run("vigenere.py", argv=["vigenere.py", "baz"], stdin=["hello, world!"])
     if not re.match(".*ciphertext:\s*iekmo, vprke\!\n", result.stdout):
         raise check50.Mismatch("ciphertext: iekmo, vprke!\n", result.stdout)
 
@@ -66,8 +66,8 @@ def withspaces():
 def noarg():
     """handles lack of argv[1]"""
     try:
-        result = check50.uva.py.run("vigenere.py", argv=["vigenere.py"])
-    except check50.uva.py.PythonException as e:
+        result = uva.check50.py.run("vigenere.py", argv=["vigenere.py"])
+    except uva.check50.py.PythonException as e:
         if not isinstance(e.exception, SystemExit):
             raise e
     else:
@@ -79,8 +79,8 @@ def noarg():
 def toomanyargs():
     """handles argc > 2"""
     try:
-        result = check50.uva.py.run("vigenere.py", argv=["vigenere.py", "1", "2", "3"])
-    except check50.uva.py.PythonException as e:
+        result = uva.check50.py.run("vigenere.py", argv=["vigenere.py", "1", "2", "3"])
+    except uva.check50.py.PythonException as e:
         if not isinstance(e.exception, SystemExit):
             raise e
     else:

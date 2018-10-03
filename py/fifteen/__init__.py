@@ -1,5 +1,5 @@
 import check50
-import check50.uva.py
+import uva.check50.py
 import re
 
 @check50.check()
@@ -11,13 +11,13 @@ def exists():
 @check50.check(exists)
 def compiles():
     """fifteen.py compiles."""
-    check50.uva.py.compile("fifteen.py")
+    uva.check50.py.compile("fifteen.py")
 
 
 @check50.check(compiles)
 def init3():
     """initializes a 3x3 board correctly."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["-1"])
 
     expected = re.compile(
           "(08 07 06)[ ]*(\n)"
@@ -31,7 +31,7 @@ def init3():
 @check50.check(compiles)
 def init4():
     """initializes a 4x4 board correctly."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "4"], stdin=["-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "4"], stdin=["-1"])
 
     expected = re.compile(
           "(15 14 13 12)[ ]*(\n)"
@@ -47,7 +47,7 @@ def init4():
 @check50.check(init3)
 def invalid8():
     """3x3 board: catches moving 8 as an illegal move."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["8", "-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["8", "-1"])
 
     expected = re.compile(
           "(08 07 06)[ ]*(\n)"
@@ -61,7 +61,7 @@ def invalid8():
 @check50.check(init3)
 def valid1():
     """3x3 board: catches moving 1 as a legal move."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["1", "-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["1", "-1"])
 
     expected = re.compile(
           "(08 07 06)[ ]*(\n)"
@@ -75,7 +75,7 @@ def valid1():
 @check50.check(init3)
 def move_up2():
     """3x3 board: move blank up twice."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["3", "6", "-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["3", "6", "-1"])
 
     expected = re.compile(
           "(08 07 06)[ ]*(\n)"
@@ -101,7 +101,7 @@ def move_up2():
 @check50.check(init3)
 def move_left2():
     """3x3 board: move blank left twice."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["1", "2", "-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["1", "2", "-1"])
 
     expected = re.compile(
           "(08 07 06)[ ]*(\n)"
@@ -127,7 +127,7 @@ def move_left2():
 check50.check(init3)
 def move_left_right():
     """3x3 board: move blank left then right."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["1", "1", "-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["1", "1", "-1"])
 
     expected = re.compile(
           "(08 07 06)[ ]*(\n)"
@@ -153,7 +153,7 @@ def move_left_right():
 check50.check(init3)
 def move_up_down():
     """3x3 board: move blank up then down."""
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["3", "3", "-1"])
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=["3", "3", "-1"])
 
     expected = re.compile(
           "(08 07 06)[ ]*(\n)"
@@ -187,7 +187,7 @@ def solve3():
              "4","5","6","7","8","6","5","4",
              "7","8"]
 
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=steps)
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "3"], stdin=steps)
 
     expected = re.compile(
           "(01 02 03)[ ]*(\n)"
@@ -232,7 +232,7 @@ def solve4():
              "11","14","12","11","15","10",
              "14","15","11","12"]
 
-    result = check50.uva.py.run("fifteen.py", argv=["fifteen.py", "4"], stdin=steps)
+    result = uva.check50.py.run("fifteen.py", argv=["fifteen.py", "4"], stdin=steps)
 
     expected = re.compile(
           "(01 02 03 04)[ ]*(\n)"

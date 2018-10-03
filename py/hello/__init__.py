@@ -1,5 +1,5 @@
 import check50
-import check50.uva.py
+import uva.check50.py
 
 @check50.check()
 def exists():
@@ -9,7 +9,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """hello.py compiles."""
-    check50.uva.py.compile("hello.py")
+    uva.check50.py.compile("hello.py")
 
 @check50.check(compiles)
 def prints_hello():
@@ -18,8 +18,8 @@ def prints_hello():
 
     expected = "[Hh]ello, world!?\n"
 
-    with check50.uva.py.capture_stdout() as stdout:
-        check50.uva.py.import_("hello.py")
+    with uva.check50.py.capture_stdout() as stdout:
+        uva.check50.py.import_("hello.py")
 
     actual = stdout.getvalue()
     if not match(expected, actual):

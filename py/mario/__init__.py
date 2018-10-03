@@ -1,5 +1,5 @@
 import check50
-import check50.uva.py
+import uva.check50.py
 import re
 
 @check50.check()
@@ -11,44 +11,44 @@ def exists():
 @check50.check(exists)
 def compiles():
     """mario.py compiles."""
-    check50.uva.py.compile("mario.py")
+    uva.check50.py.compile("mario.py")
 
 @check50.check(compiles)
 def test_reject_negative():
     """rejects a height of -1"""
-    result = check50.uva.py.run("mario.py", stdin=["-1", "2"])
+    result = uva.check50.py.run("mario.py", stdin=["-1", "2"])
     if result.stdin:
         raise check50.Failure("Expected stdin to be empty")
 
 @check50.check(compiles)
 def test0():
     """handles a height of 0 correctly"""
-    result = check50.uva.py.run("mario.py", stdin=["0"])
+    result = uva.check50.py.run("mario.py", stdin=["0"])
     if "#" in result.stdout:
         raise check50.Failure("Expected no # in stdout")
 
 @check50.check(compiles)
 def test1():
     """handles a height of 1 correctly"""
-    result = check50.uva.py.run("mario.py", stdin=["1"])
+    result = uva.check50.py.run("mario.py", stdin=["1"])
     check_pyramid(result.stdout, "Height: " + open("1.txt").read())
 
 @check50.check(compiles)
 def test2():
     """handles a height of 2 correctly"""
-    result = check50.uva.py.run("mario.py", stdin=["2"])
+    result = uva.check50.py.run("mario.py", stdin=["2"])
     check_pyramid(result.stdout, "Height: " + open("2.txt").read())
 
 @check50.check(compiles)
 def test23():
     """handles a height of 23 correctly"""
-    result = check50.uva.py.run("mario.py", stdin=["23"])
+    result = uva.check50.py.run("mario.py", stdin=["23"])
     check_pyramid(result.stdout, "Height: " + open("23.txt").read())
 
 @check50.check(compiles)
 def test24():
     """rejects a height of 24, and then accepts a height of 2"""
-    result = check50.uva.py.run("mario.py", stdin=["24", "2"])
+    result = uva.check50.py.run("mario.py", stdin=["24", "2"])
     if result.stdin:
         raise check50.Failure("Expected stdin to be empty")
     check_pyramid(result.stdout, "Height: Height: " + open("2.txt").read())

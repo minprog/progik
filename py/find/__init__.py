@@ -1,5 +1,5 @@
 import check50
-import check50.uva.py
+import uva.check50.py
 import re
 
 @check50.check()
@@ -11,13 +11,13 @@ def exists():
 @check50.check(exists)
 def compiles():
     """find.py compiles."""
-    check50.uva.py.compile("find.py")
+    uva.check50.py.compile("find.py")
 
 
 @check50.check(compiles)
 def finds_begin():
     """finds 28 in 28, 29, 30"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "28", "29", "30"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "28", "29", "30"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -26,7 +26,7 @@ def finds_begin():
 @check50.check(compiles)
 def finds_middle():
     """finds 28 in 27, 28, 29"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "27", "28", "29"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "27", "28", "29"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -34,7 +34,7 @@ def finds_middle():
 @check50.check(compiles)
 def finds_end():
     """finds 28 in 26, 27, 28"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "26", "27", "28"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "26", "27", "28"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -42,7 +42,7 @@ def finds_end():
 @check50.check(compiles)
 def finds_left_middle():
     """finds 28 in 27, 28, 29, 30"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "27", "28", "29", "30"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "27", "28", "29", "30"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -50,7 +50,7 @@ def finds_left_middle():
 @check50.check(compiles)
 def finds_right_middle():
     """finds 28 in 26, 27, 28, 29"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "26", "27", "28", "29"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "26", "27", "28", "29"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -58,7 +58,7 @@ def finds_right_middle():
 @check50.check(compiles)
 def find_end_4():
     """finds 28 in 25, 26, 27, 28"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "25", "26", "27", "28"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "25", "26", "27", "28"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -66,7 +66,7 @@ def find_end_4():
 @check50.check(compiles)
 def not_find_3():
     """doesn't find 28 in 25, 26, 27"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "25", "26", "27"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "25", "26", "27"])
     if "Did not find the needle" not in result.stdout:
         raise check50.Mismatch("Did not find the needle\n", result.stdout)
 
@@ -74,7 +74,7 @@ def not_find_3():
 @check50.check(compiles)
 def not_find_4():
     """doesn't find 28 in 25, 26, 27, 29"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "25", "26", "27", "29"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "25", "26", "27", "29"])
     if "Did not find the needle" not in result.stdout:
         raise check50.Mismatch("Did not find the needle\n", result.stdout)
 
@@ -82,7 +82,7 @@ def not_find_4():
 @check50.check(compiles)
 def finds_random():
     """finds 28 in 30, 27, 28, 26"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "30", "27", "28", "26"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "30", "27", "28", "26"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -90,7 +90,7 @@ def finds_random():
 @check50.check(compiles)
 def finds_reverse():
     """finds 28 in 30, 29, 28, 27"""
-    result = check50.uva.py.run("find.py", argv=["find.py", "28", "30", "29", "28", "27"])
+    result = uva.check50.py.run("find.py", argv=["find.py", "28", "30", "29", "28", "27"])
     if "Found the needle" not in result.stdout:
         raise check50.Mismatch("Found the needle\n", result.stdout)
 
@@ -99,8 +99,8 @@ def finds_reverse():
 def handles_no_args():
     """handles lack of argv[1]"""
     try:
-        result = check50.uva.py.run("find.py", argv=["find.py"])
-    except check50.uva.py.PythonException as e:
+        result = uva.check50.py.run("find.py", argv=["find.py"])
+    except uva.check50.py.PythonException as e:
         if not isinstance(e.exception, SystemExit):
             raise e
     else:
