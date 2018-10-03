@@ -2,6 +2,8 @@ check50:
   files: &check50_files
     - !exclude "*"
     - !require find.py
+  dependencies:
+    - "git+https://github.com/jelleas/uva_check50.git#egg=check50.uva>=0.0.1"
 
 submit50:
   files: *check50_files
