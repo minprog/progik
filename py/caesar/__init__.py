@@ -66,5 +66,5 @@ def checks_for_handling_non_alpha():
 def handles_no_argv():
     """handles lack of argv[1]"""
     result = check50.uva.py.run("caesar.py", stdin=["world, say hello!"])
-    if not "usage: python caesar.py key" in result.stdout):
+    if not "usage: python caesar.py key" in result.stdout:
         raise check50.Mismatch("usage: python caesar.py key", result.stdout)
