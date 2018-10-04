@@ -25,4 +25,4 @@ def prints_hello():
         help = None
         if re.search(expected[:-1], result.stdout):
             help = r"did you forget a newline ('\n') at the end of your printf string?"
-        raise check50.Mismatch("hello, world\n", actual, help=help)
+        raise check50.Mismatch("hello, world\n", result.stdout, help=help)
