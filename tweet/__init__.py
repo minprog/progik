@@ -29,19 +29,33 @@ def compiles():
 @check50.check(compiles)
 def correct_positive():
     """correct number of positive tweets."""
-    check_classify("positive", 538)
+    classify = uva.check50.py.run("tweet.py").module.classify
+
+    import helpers
+    dates, tweets = helpers.read_tweets("trump.txt")
+
+    positives = helpers.read_words("positive_words.txt")
+    negatives = helpers.read_words("negative_words.txt")
+
+    with uva.check50.py.capture_stdout() as stdout:
+        classify(tweets, positives, negatives)
+
+    out = stdout.getvalue()
+
+    check_classify(out, "positive", 538)
+    return out
 
 
-@check50.check(compiles)
-def correct_negative():
+@check50.check(correct_positive)
+def correct_negative(out):
     """correct number of negative tweets."""
-    check_classify("negative", 261)
+    check_classify(out, "negative", 261)
 
 
-@check50.check(compiles)
-def correct_neutral():
+@check50.check(correct_positive)
+def correct_neutral(out):
     """correct number of neutral tweets."""
-    check_classify("neutral", 198)
+    check_classify(out, "neutral", 198)
 
 
 @check50.check(compiles)
@@ -132,19 +146,7 @@ def correct_days(out):
         raise check50.Failure(f"Expected to find {days} as bad days.")
 
 
-def check_classify(type, n):
-    classify = uva.check50.py.run("tweet.py").module.classify
-
-    import helpers
-    dates, tweets = helpers.read_tweets("trump.txt")
-
-    positives = helpers.read_words("positive_words.txt")
-    negatives = helpers.read_words("negative_words.txt")
-
-    with uva.check50.py.capture_stdout() as stdout:
-        classify(tweets, positives, negatives)
-
-    out = stdout.getvalue()
+def check_classify(out, type, n):
     match = re.search(fr"{type}[^\n^\d]*(\d+)", out)
 
     if not match or int(match.groups()[0]) != n:
