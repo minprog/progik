@@ -1,5 +1,6 @@
 import check50
 import uva.check50.py
+import re
 
 @check50.check()
 def exists():
@@ -18,12 +19,10 @@ def prints_hello():
 
     expected = "[Hh]ello, world!?\n"
 
-    with uva.check50.py.capture_stdout() as stdout:
-        uva.check50.py.import_("hello.py")
+    result = uva.check50.py.run("hello.py")
 
-    actual = stdout.getvalue()
-    if not match(expected, actual):
+    if not re.search(expected, result.stdout):
         help = None
-        if match(expected[:-1], actual):
+        if re.search(expected[:-1], result.stdout):
             help = r"did you forget a newline ('\n') at the end of your printf string?"
         raise check50.Mismatch("hello, world\n", actual, help=help)
