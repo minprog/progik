@@ -46,7 +46,7 @@ def correct_neutral():
 
 @check50.check(compiles)
 def best_words():
-    """correct top five positive words"""
+    """correct top five positive words."""
     positive_word = uva.check50.py.run("tweet.py").module.positive_word
 
     import helpers
@@ -72,11 +72,63 @@ def best_words():
 
 @check50.check(best_words)
 def occurance_words(out):
-    """correct occurance of top five positive words"""
+    """correct occurance of top five positive words."""
     for word, occ in [("great", 245), ("trump", 88), ("thank", 82), ("good", 55), ("honor", 39)]:
         match = re.search(f"{word}[^\n^\d]*(\d+)", out)
         if not match.groups() or not int(match.groups()[0]) == occ:
             raise check50.Mismatch(f"{word} {occ}", out)
+
+
+@check50.check(compiles)
+def n_days():
+    """correct number of bad days."""
+    bad_days = uva.check50.py.run("tweet.py").module.bad_days
+
+    import helpers
+    dates, tweets = helpers.read_tweets("trump.txt")
+    positives = helpers.read_words("positive_words.txt")
+    negatives = helpers.read_words("negative_words.txt")
+
+    with uva.check50.py.capture_stdout() as stdout:
+        bad_days(dates, tweets, positives, negatives)
+
+    out = stdout.getvalue()
+
+    matches = re.findall("[\d]+[^\n^\d]*[\d]+[^\n^\d]*[\d]+", out)
+    if not matches or len(matches) != 19:
+        n = len(matches) if matches else 0
+        raise check50.Failure(f"expected 19 bad days, but found {n} dates!")
+
+    return out
+
+@check50.check(n_days)
+def correct_days(out):
+    """correct dates of bad days."""
+    days = {(23, 3, 2018), (21, 3, 2018), (18, 3, 2018),
+            (6, 3, 2018), (3, 3, 2018), (25, 2, 2018),
+            (17, 2, 2018), (16, 2, 2018), (15, 2, 2018),
+            (14, 2, 2018), (12, 2, 2018), (10, 2, 2018),
+            (6, 2, 2018), (4, 2, 2018), (30, 12, 2017),
+            (11, 12, 2017), (3, 12, 2017), (19, 11, 2017),
+            (3, 11, 2017)}
+
+    days_copy = set(days)
+
+    matches = re.findall("(\d+)[^\n^\d]*(\d+)[^\n^\d]*(\d+)", out)
+
+    for match in matches:
+        match = tuple([int(d) for d in match])
+
+        if match in days_copy:
+            try:
+                days.remove(match)
+            except KeyError:
+                pass
+        else:
+            raise check50.Failure(f"Did not expect {match} as a bad day!")
+
+    if days:
+        raise check50.Failure(f"Expected to find {days} as bad days.")
 
 
 def check_classify(type, n):
