@@ -70,6 +70,6 @@ def handles_no_argv():
     except uva.check50.py.PythonException as e:
         if not isinstance(e.exception, SystemExit):
             raise e
-    
-    if not "usage: python caesar.py key" in result.stdout:
-        raise check50.Mismatch("usage: python caesar.py key", result.stdout)
+    else:
+        if not "usage: python caesar.py key" in result.stdout:
+            raise check50.Mismatch("usage: python caesar.py key", result.stdout)
