@@ -3,7 +3,7 @@ check50:
     - !exclude "*"
     - !require fifteen.py
   dependencies:
-    - "git+https://github.com/jelleas/uva_check50.git#egg=uva.check50>=0.0.1"
+    - "git+https://github.com/jelleas/uva_check50.git#egg=uva.check50>=0.0.2"
 
 submit50:
   files: *check50_files
