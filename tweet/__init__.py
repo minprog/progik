@@ -29,19 +29,19 @@ def compiles():
 @check50.check(compiles)
 def correct_positive():
     """correct number of positive tweets."""
-    check_classify("positive", 417)
+    check_classify("positive", 538)
 
 
 @check50.check(compiles)
 def correct_negative():
     """correct number of negative tweets."""
-    check_classify("negative", 130)
+    check_classify("negative", 261)
 
 
 @check50.check(compiles)
 def correct_neutral():
     """correct number of neutral tweets."""
-    check_classify("neutral", 450)
+    check_classify("neutral", 198)
 
 
 @check50.check(compiles)
