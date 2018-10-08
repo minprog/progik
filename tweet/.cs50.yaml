@@ -4,6 +4,7 @@ check50:
     - !require tweet.py
   dependencies:
     - "git+https://github.com/jelleas/uva_check50.git#egg=uva.check50>=0.0.2"
+    - "nltk"
 
 submit50:
   files: *check50_files
