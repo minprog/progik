@@ -209,3 +209,33 @@ def simulate_avg():
 
     if not 40 <= avg_pop_size <= 45:
         raise check50.Failure("expected an average population size between of roughly 40 to 45, but found {avg_pop_size}")
+
+
+@check50.check(compiles)
+def is_resistent_AAA():
+    """isResistent(\"AAA\") produces True"""
+    isResistent = uva.check50.py.run("virus.py").module.isResistent
+    result = isResistent("AAA")
+
+    if result != True:
+        raise check50.Failure(f"expected True but found {result}")
+
+
+@check50.check(compiles)
+def is_resistent_AAGGAA():
+    """isResistent(\"AAGGAA\") produces False"""
+    isResistent = uva.check50.py.run("virus.py").module.isResistent
+    result = isResistent("AAGGAA")
+
+    if result != False:
+        raise check50.Failure(f"expected False but found {result}")
+
+
+@check50.check(compiles)
+def is_resistent_ATGCAATGCAATGGGCCCCTTTAAACCCT(test):
+    """"isResistent(\"ATGCAATGCAATGGGCCCCTTTAAACCCT\") produces True"""
+    isResistent = uva.check50.py.run("virus.py").module.isResistent
+    result = isResistent("ATGCAATGCAATGGGCCCCTTTAAACCCT")
+
+    if result != True:
+        raise check50.Failure(f"expected True but found {result}")
