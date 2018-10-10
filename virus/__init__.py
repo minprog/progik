@@ -239,3 +239,46 @@ def is_resistent_ATGCAATGCAATGGGCCCCTTTAAACCCT(test):
 
     if result != True:
         raise check50.Failure(f"expected True but found {result}")
+
+
+@check50.check(simulate_avg)
+def simulate_medicine_length():
+    """simulateMedicine() produces a list of the correct length"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = ["GGGG", "AAAA", "TTTT", "GGGG", "ATGC"] * 20
+    sim_results = virus.simulateMedicine(viruses, 0, 0, 0, 100, 500)
+
+    if not isinstance(sim_results, list):
+        raise check50.Failure("expected simulateMedicine() to return a list")
+
+    if not len(sim_results) == 501:
+        raise check50.Failure(f"expected a list of 501 long with timesteps=500, but found a list {len(sim_results)} long")
+
+
+@check50.check(simulate_medicine_length)
+def simulate_medicine_fluctuations():
+    """simulateMedicine(viruses, 0, 0, 0, 100) shows no fluctuations in population size"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = ["GGGG", "AAAA", "TTTT", "GGGG", "ATGC"] * 20
+
+    for pop_size in virus.simulateMedicine(viruses, 0, 0, 0, 100, 500):
+        if pop_size != 100:
+            raise check50.Failure(f"expected 100 viruses, but found {pop_size}")
+
+
+@check50.check(simulate_medicine_fluctuations, timeout=30)
+def simulate_medicine_avg():
+    """simulate(viruses, 0.1, 0.1, 0.5, 100)) is correct"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = ["GGGG", "AAAA", "TTTT", "GGGG", "ATGC"] * 20
+    n_trials = 100
+    timesteps = 1000
+
+    avg = lambda : sum(virus.simulateMedicine(viruses[:], 0.1, 0.1, 0.5, 100, timesteps)) / timesteps
+    avg_pop_size = sum(avg() for _ in range(n_trials)) / n_trials
+
+    if not 50 <= avg_pop_size <= 75:
+        raise check50.Failure("expected an average population size between of roughly 50 to 65, but found {avg_pop_size}")
