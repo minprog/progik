@@ -165,3 +165,47 @@ def reproduce_avg():
 
     if not 145 <= avg_pop_size <= 155:
         raise check50.Failure(f"expected roughly a 50% increase in population with a reproductionRate of .5, not {avg_pop_size - 100}%")
+
+
+@check50.check(reproduce_avg)
+def simulate_length():
+    """simulate() produces a list of the correct length"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = [virus.generateVirus(4) for i in range(100)]
+    sim_results = virus.simulate(viruses, 0, 0, 0, 100, 500)
+
+    if not isinstance(sim_results, list):
+        raise check50.Failure("expected simulate() to return a list")
+
+    if not len(sim_results) == 501:
+        raise check50.Failure(f"expected a list of 501 long with timesteps=500, but found a list {len(sim_results)} long")
+
+
+@check50.check(simulate_length)
+def simulate_fluctuations():
+    """simulate(viruses, 0, 0, 0, 100) shows no fluctuations in population size"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = [virus.generateVirus(4) for i in range(100)]
+
+    for pop_size in virus.simulate(viruses, 0, 0, 0, 100, 500):
+        if pop_size != 100:
+            raise check50.Failure(f"expected 100 viruses, but found {pop_size}")
+
+
+@check50.check(simulate_fluctuations, timeout=30)
+def simulate_avg():
+    """simulate(viruses, 0.25, 0.1, 0.5, 100)) is correct"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = [virus.generateVirus(4) for i in range(100)]
+
+    n_trials = 100
+    timesteps = 1000
+
+    avg = lambda : sum(virus.simulate(viruses[:], 0.25, 0.1, 0.5, 100, timesteps)) / timesteps
+    avg_pop_size = sum(avg() for _ in range(n_trials)) / n_trials
+
+    if not 40 <= avg_pop_size <= 45:
+        raise check50.Failure("expected an average population size between of roughly 40 to 45, but found {avg_pop_size}")
