@@ -104,7 +104,7 @@ def kill_no_modify():
     new_viruses = virus.kill(viruses, 1)
 
     if viruses != viruses_copy:
-        raise check50.Failure()
+        raise check50.Failure(f"the viruses passed in changed from {viruses_copy} to {viruses}")
 
 
 @check50.check(kill_no_modify)
@@ -116,7 +116,7 @@ def kill_no_new():
     new_viruses = virus.kill(viruses, 0.25)
 
     if set(new_viruses).difference(set(viruses)) or len(new_viruses) > len(viruses):
-        raise check50.Failure()
+        raise check50.Failure("expected no new viruses")
 
 
 @check50.check(kill_no_modify)
@@ -130,3 +130,38 @@ def kill_enough():
 
     if not 70 <= avg_pop_size <= 80:
         raise check50.Failure(f"expected roughly 25% of the population to die with mortalityProb of 0.25, but {100 - avg_pop_size}% died!")
+
+
+@check50.check(generate_virus_elements)
+def reproduce_parents():
+    """reproduce() with reproductionRate = 0 produces no new viruses"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = [virus.generateVirus(4) for i in range(100)]
+    new_viruses = virus.reproduce(viruses, 0.25, 0)
+
+    if not isinstance(new_viruses, list):
+        raise check50.Failure("expected reproduce() to return a list")
+
+    if not new_viruses == viruses:
+        if len(new_viruses) < len(viruses):
+            raise check50.Failure("did not expect fewer viruses after reproduce()")
+        elif len(new_viruses) > len(viruses):
+            raise check50.Failure(f"expected no new viruses")
+        else:
+            raise check50.Failure("did not expect to find different viruses")
+
+
+@check50.check(reproduce_parents)
+def reproduce_avg():
+    """reproduce() produces enough viruses on avg according to reproductionRate"""
+    virus = uva.check50.py.run("virus.py").module
+
+    viruses = [virus.generateVirus(4) for i in range(100)]
+    new_viruses = virus.reproduce(viruses, 0.25, 0)
+
+    n_trials = 1000
+    avg_pop_size = sum(len(virus.reproduce(viruses[:], 0.25, 0.50)) for _ in range(n_trials)) / n_trials
+
+    if not 145 <= avg_pop_size <= 155:
+        raise check50.Failure(f"expected roughly a 50% increase in population with a reproductionRate of .5, not {avg_pop_size - 100}%")
