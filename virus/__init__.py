@@ -233,7 +233,7 @@ def is_resistent_AAGGAA():
 
 @check50.check(compiles)
 def is_resistent_ATGCAATGCAATGGGCCCCTTTAAACCCT(test):
-    """"isResistent(\"ATGCAATGCAATGGGCCCCTTTAAACCCT\") produces True"""
+    """isResistent(\"ATGCAATGCAATGGGCCCCTTTAAACCCT\") produces True"""
     isResistent = uva.check50.py.run("virus.py").module.isResistent
     result = isResistent("ATGCAATGCAATGGGCCCCTTTAAACCCT")
 
@@ -282,3 +282,17 @@ def simulate_medicine_avg():
 
     if not 50 <= avg_pop_size <= 75:
         raise check50.Failure("expected an average population size between of roughly 50 to 65, but found {avg_pop_size}")
+
+
+@check50.check(simulate_medicine_avg, timeout=30)
+def experiment_correct():
+    """experiment() is correct"""
+    experiment = uva.check50.py.run("virus.py").module.experiment
+
+    avg = experiment(100)
+
+    if not isinstance(avg, int):
+        raise check50.Failure("expected experiment to return an int")
+
+    if not 33 <= avg <= 99:
+        raise check50.Failure(f"expected roughly 50 to 80% to get cured, but {avg}% got cured!")
