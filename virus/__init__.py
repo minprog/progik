@@ -196,7 +196,7 @@ def simulate_fluctuations():
 
 @check50.check(simulate_fluctuations, timeout=30)
 def simulate_avg():
-    """simulate(viruses, 0.25, 0.1, 0.5, 100)) is correct"""
+    """simulate(viruses, 0.25, 0.1, 0.5, 100) is correct"""
     virus = uva.check50.py.run("virus.py").module
 
     viruses = [virus.generateVirus(4) for i in range(100)]
@@ -270,7 +270,7 @@ def simulate_medicine_fluctuations():
 
 @check50.check(simulate_medicine_fluctuations, timeout=30)
 def simulate_medicine_avg():
-    """simulate(viruses, 0.1, 0.1, 0.5, 100)) is correct"""
+    """simulate(viruses, 0.1, 0.1, 0.5, 100) is correct"""
     virus = uva.check50.py.run("virus.py").module
 
     viruses = ["GGGG", "AAAA", "TTTT", "GGGG", "ATGC"] * 20
