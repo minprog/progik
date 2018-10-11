@@ -3,7 +3,7 @@ check50:
     - !exclude "*"
     - !require virus.ipynb
   dependencies:
-    - "git+https://github.com/jelleas/uva_check50.git#egg=uva.check50>=0.0.2"
+    - "git+https://github.com/jelleas/uva_check50.git#egg=uva.check50>=0.0.3"
 
 submit50:
   files: *check50_files
