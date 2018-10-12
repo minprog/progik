@@ -109,3 +109,12 @@ def correct_last_day_freezing(stdout):
 
     if day != 24 or month.lower() != "feb" or year != 1947:
         raise check50.Failure(f"expected 24 feb 1947 but found {day} {month} {year}")
+
+    return stdout
+
+
+@check50.check(correct_last_day_freezing)
+def correct_year_heatwave(stdout):
+    """prints the year of the first heatwave"""
+    if "1911" not in stdout:
+        raise check50.Failure("expected 1911 as the year of the first heatwave")
