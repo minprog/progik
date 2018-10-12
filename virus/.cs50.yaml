@@ -3,7 +3,6 @@ check50:
     - !exclude "*"
     - !require virus.ipynb
   dependencies:
-    - "jupyter"
     - "git+https://github.com/jelleas/uva_check50.git#egg=uva.check50>=0.0.3"
 
 submit50:
