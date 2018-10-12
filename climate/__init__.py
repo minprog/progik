@@ -26,7 +26,7 @@ def compiles():
 @check50.check(compiles)
 def correct_max_temp(stdout):
     """prints the maximum temperature measured"""
-    match = re.search("maximale temperatuur was (\d+[\.,]\d+) graden op", stdout)
+    match = re.search("maximale temperatuur[^\d]*(\d+[\.,]\d+)", stdout)
     if not match:
         raise check50.Failure("expected: De maximale temperatuur was XX.XX graden op")
 
@@ -39,7 +39,7 @@ def correct_max_temp(stdout):
 @check50.check(compiles)
 def correct_max_temp_day(stdout):
     """prints the day of the maximum temperature"""
-    match = re.search("maximale temperatuur was \d+[\.,]\d+ graden op (\d+) ([a-zA-Z]{3}) ([\d]{4})", stdout)
+    match = re.search("maximale temperatuur[^\d]*\d+[\.,]\d+[^\d]+(\d+) ([a-zA-Z]{3}) ([\d]{4})", stdout)
 
     if not match:
         raise check50.Failure("expected: De maximale temperatuur was XX.XX graden op XX XXX XXXX")
@@ -55,7 +55,7 @@ def correct_max_temp_day(stdout):
 @check50.check(compiles)
 def correct_min_temp(stdout):
     """prints the minimum temperature measured"""
-    match = re.search("minimale temperatuur was (-\d+[\.,]\d+) graden op", stdout)
+    match = re.search("minimale temperatuur[^\d-]*(-\d+[\.,]\d+)", stdout)
     if not match:
         raise check50.Failure("expected: De minimale temperatuur was -XX.XX graden op")
 
@@ -68,7 +68,7 @@ def correct_min_temp(stdout):
 @check50.check(compiles)
 def correct_min_temp_day(stdout):
     """prints the day of the minimum temperature"""
-    match = re.search("minimale temperatuur was -\d+[\.,]\d+ graden op (\d+) ([a-zA-Z]{3}) ([\d]{4})", stdout)
+    match = re.search("minimale temperatuur[^\d-]*-\d+[\.,]\d+[^\d]+(\d+) ([a-zA-Z]{3}) ([\d]{4})", stdout)
 
     if not match:
         raise check50.Failure("expected: De minimale temperatuur was -XX.XX graden op XX XXX XXXX")
@@ -84,7 +84,7 @@ def correct_min_temp_day(stdout):
 @check50.check(compiles)
 def correct_longest_freezing_period(stdout):
     """prints the length of the longest freezing period"""
-    match = re.search("langste vriesperiode is (\d+) dagen", stdout)
+    match = re.search("langste vriesperiode[^\d]*(\d+)", stdout)
 
     if not match:
         raise check50.Failure("expected: De langste vriesperiode is XX dagen")
@@ -98,7 +98,7 @@ def correct_longest_freezing_period(stdout):
 @check50.check(compiles)
 def correct_last_day_freezing(stdout):
     """prints the last day of the longest freezing period"""
-    match = re.search("langste vriesperiode is \d+ dagen en eindigde op (\d+) ([a-zA-Z]{3}) ([\d]{4})", stdout)
+    match = re.search("langste vriesperiode[^\d]*\d+[^\d]+(\d+) ([a-zA-Z]{3}) ([\d]{4})", stdout)
 
     if not match:
         raise check50.Failure("expected: De langste vriesperiode is XX dagen en eindigde op XX XXX XXXX")
