@@ -281,7 +281,7 @@ def simulate_medicine_avg():
     avg_pop_size = sum(avg() for _ in range(n_trials)) / n_trials
 
     if not 50 <= avg_pop_size <= 75:
-        raise check50.Failure("expected an average population size between of roughly 50 to 65, but found {avg_pop_size}")
+        raise check50.Failure(f"expected an average population size between of roughly 50 to 65, but found {avg_pop_size}")
 
 
 @check50.check(simulate_medicine_avg, timeout=30)
