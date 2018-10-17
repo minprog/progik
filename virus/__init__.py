@@ -17,7 +17,7 @@ def exists():
 @check50.check(exists)
 def compiles():
     """virus.ipynb compiles."""
-    uva.check50.py.nbconvert("virus.ipynb")
+    uva.check50.py.nbconvert("virus.ipynb", dest="virus.py")
 
     uva.check50.py.compile("virus.py")
     module = uva.check50.py.run("virus.py").module
