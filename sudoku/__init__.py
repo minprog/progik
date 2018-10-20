@@ -74,7 +74,7 @@ def correct_candidates_1_1():
         raise check50.Mismatch(actual, expected)
 
 
-@check50.check(correct_show, timeout=20)
+@check50.check(correct_show)
 def correct_solve_rule():
     """solve_rule() can solve puzzle1"""
     module = uva.check50.py.run("sudoku.py").module
@@ -88,7 +88,7 @@ def correct_solve_rule():
     check_solved(actual)
 
 
-@check50.check(correct_show, timeout=20)
+@check50.check(correct_show)
 def correct_solve_dfs_it():
     """solve_dfs_it() can solve puzzle4"""
     module = uva.check50.py.run("sudoku.py").module
@@ -102,7 +102,7 @@ def correct_solve_dfs_it():
     check_solved(actual)
 
 
-@check50.check(correct_show, timeout=20)
+@check50.check(correct_show)
 def correct_solve_dfs_rec():
     """solve_dfs_rec() can solve puzzle4"""
     module = uva.check50.py.run("sudoku.py").module
