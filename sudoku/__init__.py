@@ -63,7 +63,7 @@ def correct_candidates_1_1():
     sudoku = module.load("easy/puzzle1.sudoku")
 
     expected = {2,3,4,5}
-    actual = module.candidates(sudoku, 1, 1)
+    actual = set([int(c) for c in module.candidates(sudoku, 1, 1)])
 
     try:
         set(actual)
@@ -119,10 +119,10 @@ def correct_solve_dfs_rec():
 def check_solved(sudoku):
     expected = set(range(1, 10))
     for i in range(9):
-        row = sudoku[i]
-        column = [sudoku[x][i] for x in range(9)]
-        grid = [sudoku[x][y] for x, y in itertools.product([j + (i % 3 * 3) for j in range(3)],
-                                                           [j + (i // 3 * 3) for j in range(3)])]
+        row = [int(v) for v in sudoku[i]]]
+        column = [int(sudoku[x][i]) for x in range(9)]
+        grid = [int(sudoku[x][y]) for x, y in itertools.product([j + (i % 3 * 3) for j in range(3)],
+                                                                [j + (i // 3 * 3) for j in range(3)])]
         if set(row) != expected:
             raise check50.Failure(f"This row {row} at x={i} does not contain the numbers 1 to 9")
 
