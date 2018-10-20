@@ -12,7 +12,7 @@ check50.internal.register.after_every(lambda : sys.path.pop())
 @check50.check()
 def exists():
     """sudoku.ipynb exists."""
-    check50.include("easy", "hard")
+    check50.include("easy", "hard", *[f"puzzle{i}.sudoku" for i in range(1, 7)])
     check50.exists("sudoku.ipynb")
 
 
