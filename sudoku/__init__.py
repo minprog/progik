@@ -74,7 +74,7 @@ def correct_candidates_1_1():
         raise check50.Mismatch(actual, expected)
 
 
-@check50.check(compiles)
+@check50.check(correct_show, timeout=20)
 def correct_solve_rule():
     """solve_rule() can solve puzzle1"""
     module = uva.check50.py.run("sudoku.py").module
@@ -85,16 +85,49 @@ def correct_solve_rule():
     if not isinstance(actual, list):
         actual = sudoku
 
+    check_solved(actual)
+
+
+@check50.check(correct_show, timeout=20)
+def correct_solve_dfs_it():
+    """solve_dfs_it() can solve puzzle4"""
+    module = uva.check50.py.run("sudoku.py").module
+    sudoku = module.load("hard/puzzle4.sudoku")
+
+    actual = module.solve_dfs_it(sudoku)
+
+    if not isinstance(actual, list):
+        actual = sudoku
+
+    check_solved(actual)
+
+
+@check50.check(correct_show, timeout=20)
+def correct_solve_dfs_rec():
+    """solve_dfs_rec() can solve puzzle4"""
+    module = uva.check50.py.run("sudoku.py").module
+    sudoku = module.load("hard/puzzle4.sudoku")
+
+    actual = module.solve_dfs_rec(sudoku)
+
+    if not isinstance(actual, list):
+        actual = sudoku
+
+    check_solved(actual)
+
+
+def check_solved(sudoku):
+    expected = set(range(1, 10))
     for i in range(9):
-        row = actual[i]
-        column = [actual[x][i] for x in range(9)]
-        grid = [actual[x][y] for x, y in itertools.product([j + (i % 3 * 3) for j in range(3)],
+        row = sudoku[i]
+        column = [sudoku[x][i] for x in range(9)]
+        grid = [sudoku[x][y] for x, y in itertools.product([j + (i % 3 * 3) for j in range(3)],
                                                            [j + (i // 3 * 3) for j in range(3)])]
-        if set(row) != set(range(1,10)):
+        if set(row) != expected:
             raise check50.Failure(f"This row {row} at x={i} does not contain the numbers 1 to 9")
 
-        if set(column) != set(range(1,10)):
+        if set(column) != expected:
             raise check50.Failure(f"This column {column} at y={i} does not contain the numbers 1 to 9")
 
-        if set(grid) != set(range(1,10)):
+        if set(grid) != expected:
             raise check50.Failure(f"This grid {grid} at x={i % 3 * 3}..{i % 3 * 3 + 2}, and y={i // 3 * 3}..{i // 3 * 3 + 2} does not contain the numbers 1 to 9")
