@@ -3,6 +3,7 @@ import uva.check50.py
 import check50.internal
 import os
 import sys
+import re
 import itertools
 import copy
 
@@ -40,23 +41,24 @@ def correct_show():
     with uva.check50.py.capture_stdout() as out:
         module.show(sudoku)
 
-    expected = ["7 9 _   _ _ _   3 _ 1",
-                "_ _ _   _ _ 6   9 _ _",
-                "8 _ _   _ 3 _   _ 7 6",
+    expected = ["7 9 _  [ ]*_ _ _  [ ]*3 _ 1",
+                "_ _ _  [ ]*_ _ 6  [ ]*9 _ _",
+                "8 _ _  [ ]*_ 3 _  [ ]*_ 7 6",
                 "",
-                "_ _ _   _ _ 5   _ _ 2",
-                "_ _ 5   4 1 8   7 _ _",
-                "4 _ _   7 _ _   _ _ _",
+                "_ _ _  [ ]*_ _ 5  [ ]*_ _ 2",
+                "_ _ 5  [ ]*4 1 8  [ ]*7 _ _",
+                "4 _ _  [ ]*7 _ _  [ ]*_ _ _",
                 "",
-                "6 1 _   _ 9 _   _ _ 8",
-                "_ _ 2   3 _ _   _ _ _",
-                "_ _ 9   _ _ _   _ 5 4"]
+                "6 1 _  [ ]*_ 9 _  [ ]*_ _ 8",
+                "_ _ 2  [ ]*3 _ _  [ ]*_ _ _",
+                "_ _ 9  [ ]*_ _ _  [ ]*_ 5 4"]
 
     actual = [line.strip() for line in out.getvalue().split("\n")]
 
     for actual_line, expected_line in zip(actual, expected):
-        if actual_line != expected_line:
-            raise check50.Mismatch(expected_line, actual_line)
+        if not re.match(expected_line, actual_line):
+            readable_line = expected_line.replace("[", "").replace("]", "").replace("*", "")
+            raise check50.Mismatch(readable_line, actual_line)
 
 
 @check50.check(compiles)
