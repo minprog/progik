@@ -1,7 +1,6 @@
 import check50
 import uva.check50.py
 import check50.internal
-import re
 import os
 import sys
 import itertools
