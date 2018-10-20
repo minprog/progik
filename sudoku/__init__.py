@@ -5,6 +5,7 @@ import re
 import os
 import sys
 import itertools
+import copy
 
 check50.internal.register.before_every(lambda : sys.path.append(os.getcwd()))
 check50.internal.register.after_every(lambda : sys.path.pop())
@@ -74,49 +75,53 @@ def correct_candidates_1_1():
         raise check50.Mismatch(actual, expected)
 
 
-@check50.check(correct_show)
+@check50.check(compiles)
 def correct_solve_rule():
     """solve_rule() can solve puzzle1"""
     module = uva.check50.py.run("sudoku.py").module
     sudoku = module.load("easy/puzzle1.sudoku")
+    original = copy.deepcopy(sudoku)
 
     actual = module.solve_rule(sudoku)
-
     if not isinstance(actual, list):
         actual = sudoku
 
-    check_solved(actual)
+    check_solved(actual, original)
 
 
-@check50.check(correct_show)
+@check50.check(compiles)
 def correct_solve_dfs_it():
     """solve_dfs_it() can solve puzzle4"""
     module = uva.check50.py.run("sudoku.py").module
     sudoku = module.load("hard/puzzle4.sudoku")
+    original = copy.deepcopy(sudoku)
 
     actual = module.solve_dfs_it(sudoku)
-
     if not isinstance(actual, list):
         actual = sudoku
 
-    check_solved(actual)
+    check_solved(actual, original)
 
 
-@check50.check(correct_show)
+@check50.check(compiles)
 def correct_solve_dfs_rec():
     """solve_dfs_rec() can solve puzzle4"""
     module = uva.check50.py.run("sudoku.py").module
     sudoku = module.load("hard/puzzle4.sudoku")
+    original = copy.deepcopy(sudoku)
 
     actual = module.solve_dfs_rec(sudoku)
-
     if not isinstance(actual, list):
         actual = sudoku
 
-    check_solved(actual)
+    check_solved(actual, original)
 
 
-def check_solved(sudoku):
+def check_solved(sudoku, original):
+    for x, y in itertools.product(range(9), range(9)):
+        if int(original[x][y]) != 0 and sudoku[x][y] != original[x][y]:
+            raise check50.Failure(f"The solved sudoku changed from the original sudoku at x={x}, y={y}")
+
     expected = set(range(1, 10))
     for i in range(9):
         row = [int(v) for v in sudoku[i]]
