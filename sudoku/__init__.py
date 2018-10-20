@@ -119,7 +119,7 @@ def correct_solve_dfs_rec():
 def check_solved(sudoku):
     expected = set(range(1, 10))
     for i in range(9):
-        row = [int(v) for v in sudoku[i]]]
+        row = [int(v) for v in sudoku[i]]
         column = [int(sudoku[x][i]) for x in range(9)]
         grid = [int(sudoku[x][y]) for x, y in itertools.product([j + (i % 3 * 3) for j in range(3)],
                                                                 [j + (i // 3 * 3) for j in range(3)])]
