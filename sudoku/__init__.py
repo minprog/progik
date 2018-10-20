@@ -91,7 +91,7 @@ def correct_solve_rule():
         actual = sudoku
 
     check_sudoku(original)
-    check_sudoku(sudoku)
+    check_sudoku(actual)
     check_solved(actual, original)
 
 
@@ -107,7 +107,7 @@ def correct_solve_dfs_it():
         actual = sudoku
 
     check_sudoku(original)
-    check_sudoku(sudoku)
+    check_sudoku(actual)
     check_solved(actual, original)
 
 
@@ -123,7 +123,7 @@ def correct_solve_dfs_rec():
         actual = sudoku
 
     check_sudoku(original)
-    check_sudoku(sudoku)
+    check_sudoku(actual)
     check_solved(actual, original)
 
 
