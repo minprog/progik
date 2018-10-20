@@ -34,6 +34,9 @@ def correct_show():
     module = uva.check50.py.run("sudoku.py").module
 
     sudoku = module.load("easy/puzzle1.sudoku")
+
+    check_sudoku(sudoku)
+
     with uva.check50.py.capture_stdout() as out:
         module.show(sudoku)
 
@@ -62,6 +65,8 @@ def correct_candidates_1_1():
     module = uva.check50.py.run("sudoku.py").module
     sudoku = module.load("easy/puzzle1.sudoku")
 
+    check_sudoku(sudoku)
+
     expected = {2,3,4,5}
     actual = set([int(c) for c in module.candidates(sudoku, 1, 1)])
 
@@ -85,6 +90,8 @@ def correct_solve_rule():
     if not isinstance(actual, list):
         actual = sudoku
 
+    check_sudoku(original)
+    check_sudoku(sudoku)
     check_solved(actual, original)
 
 
@@ -99,6 +106,8 @@ def correct_solve_dfs_it():
     if not isinstance(actual, list):
         actual = sudoku
 
+    check_sudoku(original)
+    check_sudoku(sudoku)
     check_solved(actual, original)
 
 
@@ -113,7 +122,27 @@ def correct_solve_dfs_rec():
     if not isinstance(actual, list):
         actual = sudoku
 
+    check_sudoku(original)
+    check_sudoku(sudoku)
     check_solved(actual, original)
+
+
+def check_sudoku(sudoku):
+    if len(sudoku) != 9:
+        raise check50.Failure(f"Expected the sudoku to be 9 wide, but it's {len(sudoku)} wide")
+
+    for i in range(9):
+        if len(sudoku[i]) != 9:
+            raise check50.Failure(f"Expected the sudoku to be 9 long, but it's {len(sudoku[i])} long")
+
+    for x, y in itertools.product(range(9), range(9)):
+        try:
+            int(sudoku[x][y])
+        except TypeError:
+            raise check50.Failure(f"Expected the sudoku to contain only integers, but found a {type(sudoku[x][y])}")
+
+        if int(sudoku[x][y]) not in set(range(10)):
+            raise check50.Failure(f"Expected the sudoku to contain only numbers from 0..9, but found {sudoku[x][y]}")
 
 
 def check_solved(sudoku, original):
