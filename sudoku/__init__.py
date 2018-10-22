@@ -78,7 +78,7 @@ def correct_candidates_1_1():
         raise check50.Failure(f"expected candidates() to return a set not a {type(actual)}")
 
     if set(actual) != expected:
-        raise check50.Mismatch(actual, expected)
+        raise check50.Mismatch(expected, actual)
 
 
 @check50.check(compiles)
