@@ -109,7 +109,7 @@ def move_left2():
     check.stdout("\n")
 
 
-check50.check(init3)
+@check50.check(init3)
 def move_left_right():
     """3x3 board: move blank left then right."""
     check = check50.run("./fifteen 3").stdin("1")
@@ -129,7 +129,7 @@ def move_left_right():
     check.stdout("\n")
 
 
-check50.check(init3)
+@check50.check(init3)
 def move_up_down():
     """3x3 board: move blank up then down."""
     check = check50.run("./fifteen 3").stdin("3")
